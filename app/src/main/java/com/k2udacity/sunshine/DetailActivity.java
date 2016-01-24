@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,8 +46,10 @@ public class DetailActivity extends AppCompatActivity {
                 .into(imageView);
         ((TextView) findViewById(R.id.movie_detail_title))
                 .setText(movie.getOriginalTitle());
-        ((TextView) findViewById(R.id.movie_detail_description))
-                .setText(movie.getOverview());
+        TextView tvDesc = ((TextView) findViewById(R.id.movie_detail_description));
+        tvDesc.setText(movie.getOverview());
+        tvDesc.setMovementMethod(new ScrollingMovementMethod());
+
         String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
         ((TextView) findViewById(R.id.movie_detail_release_yr))
                 .setText(year);
@@ -62,16 +65,16 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        getMenuInflater().inflate(R.menu.menu_detail, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_share);
-//        android.support.v4.view.ActionProvider mShareActionProvider = MenuItemCompat.getActionProvider(menuItem);
-//        ShareActionProvider mShareActionProvider = (ShareActionProvider) menuItem.getActionProvider();
-        android.support.v7.widget.ShareActionProvider mShareActionProvider = ( android.support.v7.widget.ShareActionProvider)MenuItemCompat.getActionProvider(menuItem);
-        if(mShareActionProvider!=null){
-            mShareActionProvider.setShareIntent(createShareForecastIntent());
-        }else{
-            Log.d(LOG_TAG,"Share action provider is null");
-        }
+        //TODO Uncomment below to Disabling the share intent
+//        getMenuInflater().inflate(R.menu.menu_detail, menu);
+
+//        MenuItem menuItem = menu.findItem(R.id.action_share);
+//        android.support.v7.widget.ShareActionProvider mShareActionProvider = ( android.support.v7.widget.ShareActionProvider)MenuItemCompat.getActionProvider(menuItem);
+//        if(mShareActionProvider!=null){
+//            mShareActionProvider.setShareIntent(createShareForecastIntent());
+//        }else{
+//            Log.d(LOG_TAG,"Share action provider is null");
+//        }
         return true;
     }
     @Override

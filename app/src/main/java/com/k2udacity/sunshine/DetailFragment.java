@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 //import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -164,7 +165,7 @@ public class DetailFragment extends Fragment {
             Log.w(LOG_TAG,"Fragment view is still not ready");
             return;
         }
-        ImageView imageView = (ImageView)rootView.findViewById(R.id.movie_detail_image1);
+        ImageView imageView = (ImageView)rootView.findViewById(R.id.movie_detail_image);
         Picasso.with(getActivity())
                 .load(movie.getImageUrl())
 //                .fit()
@@ -201,8 +202,9 @@ public class DetailFragment extends Fragment {
                 .into(imageView);
         ((TextView) rootView.findViewById(R.id.movie_detail_title))
                 .setText(movie.getOriginalTitle());
-        ((TextView) rootView.findViewById(R.id.movie_detail_description))
-                .setText(movie.getOverview());
+        TextView tvDesc =  ((TextView) rootView.findViewById(R.id.movie_detail_description));
+        tvDesc.setText(movie.getOverview());
+        tvDesc.setMovementMethod(new ScrollingMovementMethod());
         String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
         ((TextView) rootView.findViewById(R.id.movie_detail_release_yr))
                 .setText(year);
