@@ -187,7 +187,7 @@ public class DetailFragment extends Fragment {
     }
 
     public void update(Movie movie, View rootView) {
-        Log.i(LOG_TAG,"Inside Update");
+        Log.i(LOG_TAG, "Inside Update");
         if(movie==null)
             return ;
         Log.i(LOG_TAG, movie.toString());
@@ -205,9 +205,11 @@ public class DetailFragment extends Fragment {
         TextView tvDesc =  ((TextView) rootView.findViewById(R.id.movie_detail_description));
         tvDesc.setText(movie.getOverview());
         tvDesc.setMovementMethod(new ScrollingMovementMethod());
-        String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
-        ((TextView) rootView.findViewById(R.id.movie_detail_release_yr))
-                .setText(year);
+        if(movie.getReleaseDate()!=null) {
+            String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
+            ((TextView) rootView.findViewById(R.id.movie_detail_release_yr))
+                    .setText(year);
+        }
         ((TextView) rootView.findViewById(R.id.movie_detail_duration))
                 .setText("120min");
         ((TextView) rootView.findViewById(R.id.movie_detail_rating))

@@ -1,6 +1,5 @@
 package com.k2udacity.sunshine;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -14,8 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -34,7 +31,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -47,7 +43,7 @@ import java.util.List;
  */
 public class ForecastFragment extends Fragment {
     private static final String BASE_URL="https://api.themoviedb.org/3/movie/550?api_key=";
-    private static final String API_KEY="ce89c354b4048d7e8a20aee5a74860dc";
+    private static String API_KEY="ce89c354b4048d7e8a20aee5a74860dc";
     private static final String POPULAR_URL="http://api.themoviedb.org/3/discover/movie";
     private final String LOG_TAG = ForecastFragment.class.getSimpleName();
 
@@ -82,16 +78,10 @@ public class ForecastFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onStart(){
-//        super.onStart();
-//        updateWeather();
-//    }
     public void updateWeather(){
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = prefs.getString(getString(R.string.pref_location_key),getString(R.string.pref_default_location));
-            Toast.makeText(getActivity(),location,Toast.LENGTH_SHORT).show();
+        API_KEY = prefs.getString(getString(R.string.pref_location_key),getString(R.string.pref_default_api_key));
         weatherTask.execute(POPULAR_URL,API_KEY,"sort_by","popularity.desc");
 
     }

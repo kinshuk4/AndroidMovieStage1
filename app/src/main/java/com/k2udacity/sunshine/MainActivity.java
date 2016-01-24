@@ -3,19 +3,13 @@ package com.k2udacity.sunshine;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.AsyncQueryHandler;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,8 +19,6 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,13 +39,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Handler;
 
 public class MainActivity extends AppCompatActivity {
     private String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String BASE_URL="https://api.themoviedb.org/3/movie/550?api_key=";
-    private static final String API_KEY="ce89c354b4048d7e8a20aee5a74860dc";
+    private static  String API_KEY="";
     private static final String POPULAR_URL="http://api.themoviedb.org/3/discover/movie";
     GridViewAdapter mGridAdapter ;
     ArrayList<Movie> mGridData;
@@ -70,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        updateWeather();
+        updateMovies();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //Get item at position
-                Movie item = (Movie) parent.getItemAtPosition(position);
+                Movie item = mGridData.get(position);
+//                        (Movie) parent.getItemAtPosition(position);
                 movie = item;
                 View container = (View) findViewById(R.id.fragment_container);
 
@@ -118,11 +109,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String currentSort;
-    public void updateWeather(){
+    public void updateMovies(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+         API_KEY = prefs.getString(getString(R.string.pref_api_key),getString(R.string.pref_default_api_key));
+
         if(mProgressBar!=null){
             mProgressBar.setVisibility(View.VISIBLE);
         }
-        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        FetchMoviesTask movieTask = new FetchMoviesTask();
         String key = "popularity.desc";
         if(null == currentSort || "".equals(currentSort)){
             ;
@@ -136,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-        weatherTask.execute(POPULAR_URL,API_KEY,"sort_by",key);
+        movieTask.execute(POPULAR_URL, API_KEY, "sort_by", key);
 
     }
 
@@ -259,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,item,Toast.LENGTH_LONG);
                 Log.e(LOG_TAG, "Selected " + item);
                 currentSort = item;
-                updateWeather();
+                updateMovies();
             }
 
             @Override
@@ -290,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openPreferredLocationInMap() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_default_location));
+        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_default_api_key));
         Uri geoLocation = Uri.parse("geo:0:0?").buildUpon()
                 .appendQueryParameter("q",location)
                 .build();
@@ -299,12 +293,12 @@ public class MainActivity extends AppCompatActivity {
         if(intent.resolveActivity(getPackageManager())!=null){
             startActivity(intent);
         }else{
-            Log.d(LOG_TAG, "Couldn't call "+location + " ");
+            Log.d(LOG_TAG, "Couldn't call " + location + " ");
         }
     }
 
-    public class FetchWeatherTask extends AsyncTask<String, Void, Movie[]> {
-        private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+    public class FetchMoviesTask extends AsyncTask<String, Void, Movie[]> {
+        private final String LOG_TAG = FetchMoviesTask.class.getSimpleName();
 
         /* The date/time conversion code is going to be moved outside the asynctask later,
          * so for convenience we're breaking it out into its own method now.
@@ -487,6 +481,7 @@ public class MainActivity extends AppCompatActivity {
                 mProgressBar.setVisibility(View.GONE);
                 if(mGridData!=null && mGridData.size()!=0 && isForTablet)
                     updateFragment3(mGridData.get(0));
+
             }
         }
 

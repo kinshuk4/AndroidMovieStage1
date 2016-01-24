@@ -169,9 +169,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-                || NotificationPreferenceFragment.class.getName().equals(fragmentName);
+                || GeneralPreferenceFragment.class.getName().equals(fragmentName);
+//                || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
+//                || NotificationPreferenceFragment.class.getName().equals(fragmentName);
 
 
     }
@@ -192,8 +192,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_temperature_key)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_api_key)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_movie_sort_key)));
         }
 
         @Override

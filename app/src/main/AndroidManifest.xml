@@ -37,14 +37,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
-        <activity
-            android:name=".SortSettingActivity"
-            android:label="@string/title_activity_sort_setting"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="MainActivity" />
-        </activity>
     </application>
 
 </manifest>
