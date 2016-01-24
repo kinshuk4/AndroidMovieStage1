@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
         if(spinner==null)
             return;
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.pref_sort_titles, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -354,16 +354,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if(id == R.id.action_sort){
-            sortMovieList();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void sortMovieList() {
-        startActivity(new Intent(this, SortSettingActivity.class));
-
     }
 
     private void openPreferredLocationInMap() {
