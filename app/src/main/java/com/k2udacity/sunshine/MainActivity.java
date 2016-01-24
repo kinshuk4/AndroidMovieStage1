@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String BASE_URL="https://api.themoviedb.org/3/movie/550?api_key=";
     private static final String API_KEY="ce89c354b4048d7e8a20aee5a74860dc";
     private static final String POPULAR_URL="http://api.themoviedb.org/3/discover/movie";
-//    public ImageAdapter mForecastAdapter = new ImageAdapter(getActivity());
     GridViewAdapter mGridAdapter ;
     ArrayList<Movie> mGridData;
     GridView mGridView;
@@ -84,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         View rootView = (View) findViewById(R.id.content_main);
 
         mGridView = (GridView) rootView.findViewById(R.id.gridView);
-//        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         //Initialize with empty data
@@ -102,24 +100,10 @@ public class MainActivity extends AppCompatActivity {
                 //Get item at position
                 Movie item = (Movie) parent.getItemAtPosition(position);
                 movie = item;
-//                FragmentManager fm = getFragmentManager();
-//                DetailFragment fragment = (DetailFragment)getFragmentById(R.id.detail_fragment);
-//                Fragment fragment = (DetailFragment) getFragmentById(R.id.detail_fragment);
                 View container = (View) findViewById(R.id.fragment_container);
 
                 if (container != null) {
                     Log.i(LOG_TAG, "Fragment is not null");
-//                    fragment.update(movie);
-//                    fm.executePendingTransactions();
-//                    String d = fragment.isVisible()?"true":"false";
-//                    Toast.makeText(MainActivity.this, d, Toast.LENGTH_SHORT).show();
-
-//                    if(fragment.getView()!=null) {
-//                        String data = ((TextView) fragment.getView().findViewById(R.id.movie_detail_rating1)).getText().toString();
-//                        Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
-//                        Log.w(LOG_TAG,"Warningggg:"+data);
-//                    }
-
                     updateFragment3(movie);
                 } else {
                     //TODO : Setup the intent activity
@@ -131,30 +115,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mProgressBar.setVisibility(View.VISIBLE);
-//        updateSpinner();
-//        updateSpinner();
     }
-//    popularity.asc
-//    popularity.desc
-//    release_date.asc
-//    release_date.desc
-//    revenue.asc
-//    revenue.desc
-//    primary_release_date.asc
-//    primary_release_date.desc
-//    original_title.asc
-//    original_title.desc
-//    vote_average.asc
-//    vote_average.desc
-//    vote_count.asc
-//    vote_count.desc
+
     private String currentSort;
     public void updateWeather(){
-
+        if(mProgressBar!=null){
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
         FetchWeatherTask weatherTask = new FetchWeatherTask();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String location = prefs.getString(getString(R.string.pref_location_key),getString(R.string.pref_default_location));
-        Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
         String key = "popularity.desc";
         if(null == currentSort || "".equals(currentSort)){
             ;
@@ -225,10 +193,6 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
         ft.show(frg);
         fm.executePendingTransactions();
-//        DetailFragment fragment = (DetailFragment) fm.findFragmentById(R.id.detail_fragment);
-//        if(fragment!=null)
-//            fragment.update(movie);
-//        ft.commit();
     }
 
     public void updateFragment2(Movie movie){
@@ -248,46 +212,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Null", Toast.LENGTH_SHORT).show();
             }
         }
-//        ft.detach(fragment);
-//        ft.attach(fragment);
-//        ft.replace(R.id.fragment_container, fragment);
-//        ft.commit();
     }
 
 
-//    public android.support.v4.app.Fragment getOldFragmentById(int id){
-//        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-//        return fm.findFragmentById(id);
-//    }
-//
-//    public void updateOldFragment() {
-//        Movie movie = mGridData.get(0);
-//        updateOldFragment(movie);
-//    }
-//    public void updateOldFragment(Movie movie) {
-//        if(movie!=null) {
-//            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-//            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-//            DetailFragment frg = DetailFragment.newInstance(movie);
-//
-////            ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-//            ft.replace(R.id.fragment_container, frg);
-//            ft.addToBackStack(null);
-//            ft.show(frg);
-//            ft.commit();
-////            final View fragmentCView = findViewById(R.id.fragment_container);
-////            fragmentCView.setVisibility(View.VISIBLE);
-////            fm.executePendingTransactions();
-//        }
-//    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_sort);
-//        View view = item.getActionView();
-        // ...
+
         View view = MenuItemCompat.getActionView(item);
         if(view instanceof Spinner) {
             final Spinner spinner = (Spinner) view;
@@ -295,8 +230,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Log.e(LOG_TAG,"Not Found the spiiner"+view.getClass().getSimpleName());
         }
-//        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
-//        updateSpinner(spinner);
         mOptionsMenu = menu;
         return true;
     }
@@ -312,12 +245,9 @@ public class MainActivity extends AppCompatActivity {
     public void updateSpinner(Spinner spinner){
         if(spinner==null)
             return;
-// Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.pref_sort_titles, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -339,12 +269,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(this,SettingsActivity.class));
             return true;
@@ -413,9 +339,6 @@ public class MainActivity extends AppCompatActivity {
             JSONObject moviesJson = new JSONObject(forecastJsonStr);
             JSONArray moviesArray = moviesJson.getJSONArray(RESULTS);
             Movie[] resultStrs = null;
-//            if(numDays!=-1)
-//                resultStrs = new Movie[numDays];
-//            else
             resultStrs = new Movie[moviesArray.length()];
             for(int i = 0; i < moviesArray.length(); i++) {
                 // For now, using the format "Day, description, hi/low"
@@ -553,12 +476,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public void onPostExecute(Movie[] result) {
-//            updateSpinner();
             if(result != null){
-//                mForecastAdapter.clear();
-//                for (Movie dayForecastStr : result){
-//                mForecastAdapter.setImages(result);
-//                }
                 Log.i(LOG_TAG,"Size of movie arr"+result.length);
                 mGridData = new ArrayList<Movie>(Arrays.asList(result));
                 mGridAdapter.setGridData(mGridData);
