@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
+// TODO Inject data by ButterKnife
 public class GridViewAdapter extends ArrayAdapter<Movie> {
 
     //private final ColorMatrixColorFilter grayscaleFilter;

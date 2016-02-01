@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+// TODO Inject data by ButterKnife
 public class MainActivity extends AppCompatActivity {
     private String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String BASE_URL="https://api.themoviedb.org/3/movie/550?api_key=";

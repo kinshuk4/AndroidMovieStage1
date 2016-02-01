@@ -41,6 +41,7 @@ import java.util.Date;
 
  * create an instance of this fragment.
  */
+// TODO Inject data by ButterKnife
 public class ForecastFragment extends Fragment {
     private static final String BASE_URL="https://api.themoviedb.org/3/movie/550?api_key=";
     private static String API_KEY="ce89c354b4048d7e8a20aee5a74860dc";

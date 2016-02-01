@@ -20,15 +20,24 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+// TODO Inject data by ButterKnife
 public class DetailActivity extends AppCompatActivity {
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
     private static final String FORECAST_SHARE_HASHTAG = "#SunshineApp";
     private String mForecastStr;
+    //UI Elements
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.movie_detail_title) TextView tvMovieTitle;
+    @Bind(R.id.movie_detail_description) TextView tvMovieDesc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
@@ -44,11 +53,10 @@ public class DetailActivity extends AppCompatActivity {
                 .load(movie.getImageUrl())
 //                .fit()
                 .into(imageView);
-        ((TextView) findViewById(R.id.movie_detail_title))
-                .setText(movie.getOriginalTitle());
-        TextView tvDesc = ((TextView) findViewById(R.id.movie_detail_description));
-        tvDesc.setText(movie.getOverview());
-        tvDesc.setMovementMethod(new ScrollingMovementMethod());
+        tvMovieTitle.setText(movie.getOriginalTitle());
+//        TextView tvDesc = ((TextView) findViewById(R.id.movie_detailr_description));
+        tvMovieDesc.setText(movie.getOverview());
+        tvMovieDesc.setMovementMethod(new ScrollingMovementMethod());
 
         String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
         ((TextView) findViewById(R.id.movie_detail_release_yr))

@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Created by kchandra on 23/01/16.
  */
+// TODO Inject data by ButterKnife
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     String baseImgUrl = "http://image.tmdb.org/t/p/";

@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
  * Use the {@link DetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+// TODO Inject data by ButterKnife
 public class DetailFragment extends Fragment {
 
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
@@ -168,7 +169,8 @@ public class DetailFragment extends Fragment {
         ImageView imageView = (ImageView)rootView.findViewById(R.id.movie_detail_image);
         Picasso.with(getActivity())
                 .load(movie.getImageUrl())
-//                .fit()
+                .placeholder(R.drawable.progress_animation)
+                .error(R.drawable.ic_error)
                 .into(imageView);
         ((TextView) rootView.findViewById(R.id.movie_detail_title))
                 .setText(movie.getOriginalTitle());
