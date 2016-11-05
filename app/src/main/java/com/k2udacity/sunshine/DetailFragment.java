@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +35,12 @@ public class DetailFragment extends Fragment {
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
     private static final String FORECAST_SHARE_HASHTAG = "#MovieApp";
     private String mForecastStr;
+    @Bind(R.id.movie_detail_title) TextView tvMovieTitle;
+    @Bind(R.id.movie_detail_description1) TextView tvMovieDesc;
+    @Bind(R.id.movie_detail_release_yr1) TextView tvMovieReleaseYr;
+    @Bind(R.id.movie_detail_duration1) TextView tvMovieDuration;
+    @Bind(R.id.movie_detail_rating1) TextView tvMovieRating;
+    @Bind(R.id.movie_detail_image) ImageView ivMovieImg;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -166,23 +174,32 @@ public class DetailFragment extends Fragment {
             Log.w(LOG_TAG,"Fragment view is still not ready");
             return;
         }
-        ImageView imageView = (ImageView)rootView.findViewById(R.id.movie_detail_image);
+//        ImageView imageView = (ImageView)rootView.findViewById(R.id.movie_detail_image);
         Picasso.with(getActivity())
                 .load(movie.getImageUrl())
                 .placeholder(R.drawable.progress_animation)
                 .error(R.drawable.ic_error)
-                .into(imageView);
-        ((TextView) rootView.findViewById(R.id.movie_detail_title))
-                .setText(movie.getOriginalTitle());
-        ((TextView) rootView.findViewById(R.id.movie_detail_description1))
-                .setText(movie.getOverview());
+                .into(ivMovieImg);
+        tvMovieTitle.setText(movie.getOriginalTitle());
+//        TextView tvDesc = ((TextView) findViewById(R.id.movie_detailr_description));
+        tvMovieDesc.setText(movie.getOverview());
+        tvMovieDesc.setMovementMethod(new ScrollingMovementMethod());
+
         String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
-        ((TextView) rootView.findViewById(R.id.movie_detail_release_yr1))
-                .setText(year);
-        ((TextView) rootView.findViewById(R.id.movie_detail_duration1))
-                .setText("120min");
-        ((TextView) rootView.findViewById(R.id.movie_detail_rating1))
-                .setText(movie.getRating()+"/10");
+        tvMovieReleaseYr.setText(year);
+        tvMovieDuration.setText("120min");
+        tvMovieRating.setText(movie.getRating() + "/10");
+//        ((TextView) rootView.findViewById(R.id.movie_detail_title))
+//                .setText(movie.getOriginalTitle());
+//        ((TextView) rootView.findViewById(R.id.movie_detail_description1))
+//                .setText(movie.getOverview());
+//        String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
+//        ((TextView) rootView.findViewById(R.id.movie_detail_release_yr1))
+//                .setText(year);
+//        ((TextView) rootView.findViewById(R.id.movie_detail_duration1))
+//                .setText("120min");
+//        ((TextView) rootView.findViewById(R.id.movie_detail_rating1))
+//                .setText(movie.getRating()+"/10");
 
 
         return ;

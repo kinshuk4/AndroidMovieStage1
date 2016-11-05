@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.k2udacity.movie.util.Constants;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,17 +42,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import butterknife.Bind;
+
 // TODO Inject data by ButterKnife
 public class MainActivity extends AppCompatActivity {
+    public static final String POPULARITY_DESC = "popularity.desc";
+    public static final String VOTE_AVERAGE_DESC = "vote_average.desc";
     private String LOG_TAG = MainActivity.class.getSimpleName();
+    //Actual Parameters
     private static final String BASE_URL="https://api.themoviedb.org/3/movie/550?api_key=";
     private static  String API_KEY="";
     private static final String POPULAR_URL="http://api.themoviedb.org/3/discover/movie";
+    private boolean isForTablet;
+
+    //UI Related
     GridViewAdapter mGridAdapter ;
     ArrayList<Movie> mGridData;
     GridView mGridView;
-    private ProgressBar mProgressBar;
-    private boolean isForTablet;
+    ProgressBar mProgressBar;
+    Toolbar toolbar;
+
 
     private Movie movie;
 
@@ -95,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 View container = (View) findViewById(R.id.fragment_container);
 
                 if (container != null) {
-                    Log.i(LOG_TAG, "Fragment is not null");
+                    Log.d(LOG_TAG, "Fragment is not null");
                     updateFragment3(movie);
                 } else {
                     //TODO : Setup the intent activity
@@ -118,16 +129,16 @@ public class MainActivity extends AppCompatActivity {
             mProgressBar.setVisibility(View.VISIBLE);
         }
         FetchMoviesTask movieTask = new FetchMoviesTask();
-        String key = "popularity.desc";
+        String key = POPULARITY_DESC;
         if(null == currentSort || "".equals(currentSort)){
             ;
         }else{
             switch (currentSort){
-                case "Most Popular":
-                    key = "popularity.desc";
+                case Constants.MOST_POPULAR:
+                    key = POPULARITY_DESC;
                     break;
-                case "Highest Rated":
-                    key = "vote_average.desc";
+                case Constants.HIGHEST_RATED:
+                    key = VOTE_AVERAGE_DESC;
                     break;
             }
         }

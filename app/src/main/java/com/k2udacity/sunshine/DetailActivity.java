@@ -32,11 +32,14 @@ public class DetailActivity extends AppCompatActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.movie_detail_title) TextView tvMovieTitle;
     @Bind(R.id.movie_detail_description) TextView tvMovieDesc;
+    @Bind(R.id.movie_detail_release_yr) TextView tvMovieReleaseYr;
+    @Bind(R.id.movie_detail_duration) TextView tvMovieDuration;
+    @Bind(R.id.movie_detail_rating) TextView tvMovieRating;
+    @Bind(R.id.movie_detail_image) ImageView ivMovieImg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
@@ -48,23 +51,20 @@ public class DetailActivity extends AppCompatActivity {
 
         Movie movie = (Movie) intent.getSerializableExtra("movie");
         Log.i(LOG_TAG, movie.toString());
-        ImageView imageView = (ImageView)findViewById(R.id.movie_detail_image);
+
         Picasso.with(getBaseContext())
                 .load(movie.getImageUrl())
 //                .fit()
-                .into(imageView);
+                .into(ivMovieImg);
         tvMovieTitle.setText(movie.getOriginalTitle());
 //        TextView tvDesc = ((TextView) findViewById(R.id.movie_detailr_description));
         tvMovieDesc.setText(movie.getOverview());
         tvMovieDesc.setMovementMethod(new ScrollingMovementMethod());
 
         String year = (String) android.text.format.DateFormat.format("yyyy", movie.getReleaseDate()); //2013
-        ((TextView) findViewById(R.id.movie_detail_release_yr))
-                .setText(year);
-        ((TextView) findViewById(R.id.movie_detail_duration))
-                .setText("120min");
-        ((TextView) findViewById(R.id.movie_detail_rating))
-                .setText(movie.getRating()+"/10");
+        tvMovieReleaseYr.setText(year);
+        tvMovieDuration.setText("120min");
+        tvMovieRating.setText(movie.getRating() + "/10");
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
