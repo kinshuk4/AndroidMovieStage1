@@ -1,5 +1,5 @@
 # MovieStage1
-Fully functional and colorful android app which I made from scratch for Android Developer Nanodegree program. This app reveals the power of adaptive UI both for phone and tablet devices. If you want to see stage 2, you can go [here](https://github.com/iboen/nanodegree-movieapp-stage2).
+Fully functional and colorful android app which I made from scratch for Android Developer Nanodegree program. This app reveals the power of adaptive UI both for phone and tablet devices. If you want to see stage 2, you can go [here](https://github.com/kinshuk4/AndroidMovieStage2).
 
 ## Features
 
