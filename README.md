@@ -14,9 +14,9 @@ Screenshots
 -----------
 <table>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/kinshuk4/AndroidXyzReader/master/screenshots/gridview.png"/></td>
-    <td><img src="https://raw.githubusercontent.com/kinshuk4/AndroidXyzReader/master/screenshots/sort.png"/></td>
-    <td><img src="https://raw.githubusercontent.com/kinshuk4/AndroidXyzReader/master/screenshots/detailed.png"/></td>    
+    <td><img src="https://raw.githubusercontent.com/kinshuk4/AndroidMovieStage1/master/screenshots/gridview.png"/></td>
+    <td><img src="https://raw.githubusercontent.com/kinshuk4/AndroidMovieStage1/master/screenshots/sort.png"/></td>
+    <td><img src="https://raw.githubusercontent.com/kinshuk4/AndroidMovieStage1/master/screenshots/detailed.png"/></td>    
   </tr>
 </table>
 
