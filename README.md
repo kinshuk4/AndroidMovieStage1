@@ -26,5 +26,4 @@ Screenshots
 - Android Design Support
 - Picasso
 - Retrofit
-- RecyclerView v7
 - ButterKnife
